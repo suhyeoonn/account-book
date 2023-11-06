@@ -1,6 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="flex flex-col gap-10">
+	<input type="date" />
+	<div class="btn-group">
+		<button class="btn btn-active">들어온 돈</button>
+		<button class="btn">나간 돈</button>
+	</div>
 
-<div class="m-10">
-	<button class="btn btn-primary">click</button>
+	<input type="text" placeholder="설명" class="input input-bordered input-lg" />
+	<input type="number" placeholder="금액" class="input input-bordered input-lg" />
 </div>
