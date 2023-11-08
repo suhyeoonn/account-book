@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { LocalStorage } from '$lib/LocalStorage';
+
 	enum accountType {
 		INPUT,
 		OUTPUT
@@ -7,11 +9,17 @@
 	let date = new Date().toISOString().substring(0, 10);
 	let type = accountType.INPUT;
 	let description = '';
-	let amount = '';
+	let amount = 0;
 
 	const onSubmit = (e: Event) => {
 		e.preventDefault();
-		console.log(date, type, description, amount);
+
+		if (amount < 1) {
+			alert('금액을 입력하세요.');
+			return;
+		}
+
+		LocalStorage.save({ date, type, description, amount });
 	};
 
 	const setType = (_type: accountType) => {
