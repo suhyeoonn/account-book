@@ -8,7 +8,7 @@
 
 	let date = new Date().toISOString().substring(0, 10);
 	let type = accountType.INPUT;
-	let description = '';
+	let detail = '';
 	let amount = 0;
 
 	const onSubmit = (e: Event) => {
@@ -19,7 +19,7 @@
 			return;
 		}
 
-		LocalStorage.save({ date, type, description, amount });
+		LocalStorage.save({ date, type, detail, amount });
 	};
 
 	const setType = (_type: accountType) => {
@@ -48,12 +48,7 @@
 		</button>
 	</div>
 
-	<input
-		type="text"
-		placeholder="설명"
-		bind:value={description}
-		class="input input-bordered input-lg"
-	/>
+	<input type="text" placeholder="설명" bind:value={detail} class="input input-bordered input-lg" />
 	<input
 		type="number"
 		placeholder="금액"
