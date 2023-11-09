@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { LocalStorage } from '$lib/LocalStorage';
-
-	enum accountType {
-		INPUT,
-		OUTPUT
-	}
+	import { accountType } from '$lib/types';
 
 	let date = new Date().toISOString().substring(0, 10);
 	let type = accountType.INPUT;

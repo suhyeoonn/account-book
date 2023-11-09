@@ -1,7 +1,7 @@
 interface dataType {
 	date: string;
 	type: number;
-	description: string;
+	detail: string;
 	amount: number;
 }
 export class LocalStorage {
