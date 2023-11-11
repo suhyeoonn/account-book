@@ -16,6 +16,7 @@
 		}
 
 		LocalStorage.save({ date, type, detail, amount });
+		location.href = '/';
 	};
 
 	const setType = (_type: accountType) => {

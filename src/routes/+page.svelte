@@ -18,7 +18,15 @@
 	};
 </script>
 
-<h1>거래 내역 페이지</h1>
+<div class="flex justify-between">
+	<h1>거래 내역 페이지</h1>
+	<button
+		class="btn btn-primary"
+		on:click={() => {
+			location.href = '/add';
+		}}>추가</button
+	>
+</div>
 {#if history.length < 1}
 	<Alert message="거래내역을 추가하세요." />
 {:else}
