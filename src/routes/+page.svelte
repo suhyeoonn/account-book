@@ -6,15 +6,27 @@
 
 	let history: dataType[] = [];
 	onMount(() => {
-		history = LocalStorage.get();
+		setHistory();
 	});
+
+	const setHistory = () => {
+		history = LocalStorage.get();
+	};
 
 	const getAmount = (amount: number, type: accountType) => {
 		return `${type === accountType.INPUT ? '+' : '-'}${amount}원`;
 	};
 
 	const getAmountClass = (type: accountType) => {
-		return type === accountType.INPUT ? 'text-red-500' : 'text-blue-500';
+		return type === accountType.INPUT ? 'text-blue-500' : 'text-red-500';
+	};
+
+	const onDelete = (id: number) => {
+		if (!confirm('삭제하시겠습니까?')) {
+			return;
+		}
+		LocalStorage.delete(id);
+		setHistory();
 	};
 </script>
 
@@ -31,11 +43,12 @@
 	<Alert message="거래내역을 추가하세요." />
 {:else}
 	<ul>
-		{#each history as { date, detail, amount, type }}
-			<li class="grid grid-cols-3 text-gray-500 p-2">
+		{#each history as { id, date, detail, amount, type }}
+			<li class="grid grid-cols-4 text-gray-500 p-2">
 				<span>{date}</span>
 				<span class="text-gray-800">{detail}</span>
 				<span class={getAmountClass(type)}>{getAmount(amount, type)}</span>
+				<button class="btn btn-error btn-xs" on:click={() => onDelete(id)}>remove</button>
 			</li>
 		{/each}
 	</ul>

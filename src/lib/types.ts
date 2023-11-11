@@ -4,6 +4,7 @@ export enum accountType {
 }
 
 export interface dataType {
+	id: number;
 	date: string;
 	type: number;
 	detail: string;

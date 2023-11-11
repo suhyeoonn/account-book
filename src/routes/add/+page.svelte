@@ -15,7 +15,7 @@
 			return;
 		}
 
-		LocalStorage.save({ date, type, detail, amount });
+		LocalStorage.add({ date, type, detail, amount });
 		location.href = '/';
 	};
 
