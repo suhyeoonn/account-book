@@ -14,7 +14,7 @@
 	};
 
 	const getAmount = (amount: number, type: accountType) => {
-		return `${type === accountType.INPUT ? '+' : '-'}${amount}원`;
+		return `${type === accountType.INPUT ? '+' : '-'}${amount.toLocaleString('ko-KR')}원`;
 	};
 
 	const getAmountClass = (type: accountType) => {
