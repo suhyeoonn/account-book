@@ -26,19 +26,19 @@
 
 <form class="flex flex-col gap-10" on:submit={onSubmit}>
 	<input type="date" bind:value={date} required class="input input-bordered input-lg" />
-	<div class="btn-group">
+	<div class="join">
 		<button
 			type="button"
-			class="btn"
-			class:btn-active={type === accountType.INPUT}
+			class="btn join-item"
+			class:btn-secondary={type === accountType.INPUT}
 			on:click={() => setType(accountType.INPUT)}
 		>
 			들어온 돈
 		</button>
 		<button
 			type="button"
-			class="btn"
-			class:btn-active={type === accountType.OUTPUT}
+			class="btn join-item"
+			class:btn-accent={type === accountType.OUTPUT}
 			on:click={() => setType(accountType.OUTPUT)}
 		>
 			나간 돈
