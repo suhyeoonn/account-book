@@ -1,17 +1,11 @@
+import type { saveDataDto } from './accountModel';
 import type { dataType } from './types';
 
-interface addDataDto {
-	date: string;
-	type: number;
-	detail: string;
-	amount: number;
-}
-
 export class LocalStorage {
-	static add(data: addDataDto) {
+	static save(data: saveDataDto) {
 		const savedData = LocalStorage.get();
 		const id = savedData.length < 1 ? 1 : savedData.slice(-1)[0].id + 1;
-		LocalStorage.save(savedData.concat({ id, ...data }));
+		LocalStorage.setData(savedData.concat({ id, ...data }));
 	}
 
 	static get(): dataType[] {
@@ -19,13 +13,13 @@ export class LocalStorage {
 		return jsonData ? JSON.parse(jsonData) : [];
 	}
 
-	static save(data: dataType[]) {
+	static setData(data: dataType[]) {
 		localStorage.setItem('data', JSON.stringify(data));
 	}
 
 	static delete(id: number) {
 		const savedData = LocalStorage.get();
 		const filteredData = savedData.filter((data) => data.id !== id);
-		LocalStorage.save(filteredData);
+		LocalStorage.setData(filteredData);
 	}
 }

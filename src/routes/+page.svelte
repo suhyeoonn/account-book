@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { LocalStorage } from '$lib/LocalStorage';
+	import type { accountModel } from '$lib/accountModel';
 	import Alert from '$lib/components/Alert.svelte';
 	import { accountType, type dataType } from '$lib/types';
 	import { onMount } from 'svelte';
+
+	const model: accountModel = LocalStorage;
 
 	let history: dataType[] = [];
 	onMount(() => {
@@ -25,7 +28,7 @@
 		if (!confirm('삭제하시겠습니까?')) {
 			return;
 		}
-		LocalStorage.delete(id);
+		model.delete(id);
 		setHistory();
 	};
 </script>

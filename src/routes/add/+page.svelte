@@ -2,6 +2,9 @@
 	import { LocalStorage } from '$lib/LocalStorage';
 	import { cateogryList } from '$lib/category';
 	import { accountType } from '$lib/types';
+	import type { accountModel } from '$lib/accountModel';
+
+	const model: accountModel = LocalStorage;
 
 	let date = new Date().toISOString().substring(0, 10);
 	let type = accountType.INPUT;
@@ -24,7 +27,8 @@
 			return;
 		}
 
-		LocalStorage.add({ date, type, detail, amount });
+		// TODO category 전달
+		model.save({ date, type, detail, amount });
 		location.href = '/';
 	};
 
@@ -34,6 +38,7 @@
 	};
 </script>
 
+<!-- TODO label -->
 <form class="flex flex-col gap-10" on:submit={onSubmit}>
 	<input type="date" bind:value={date} required class="input input-bordered input-lg" />
 	<div class="join">
