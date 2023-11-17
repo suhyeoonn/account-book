@@ -10,3 +10,9 @@ export interface dataType {
 	detail: string;
 	amount: number;
 }
+
+export interface cateogryType {
+	id: number;
+	name: string;
+	type: accountType;
+}
