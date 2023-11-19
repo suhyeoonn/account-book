@@ -3,12 +3,13 @@ export enum accountType {
 	OUTPUT
 }
 
-export interface dataType {
+export interface historyType {
 	id: number;
 	date: string;
 	type: number;
 	detail: string;
 	amount: number;
+	category: number;
 }
 
 export interface cateogryType {

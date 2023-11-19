@@ -27,8 +27,7 @@
 			return;
 		}
 
-		// TODO category 전달
-		model.save({ date, type, detail, amount });
+		model.save({ date, type, detail, amount, category: Number(category) });
 		location.href = '/';
 	};
 

@@ -1,5 +1,5 @@
 import type { saveDataDto } from './accountModel';
-import type { dataType } from './types';
+import type { historyType } from './types';
 
 export class LocalStorage {
 	static save(data: saveDataDto) {
@@ -8,12 +8,12 @@ export class LocalStorage {
 		LocalStorage.setData(savedData.concat({ id, ...data }));
 	}
 
-	static get(): dataType[] {
+	static get(): historyType[] {
 		const jsonData = localStorage.getItem('data');
 		return jsonData ? JSON.parse(jsonData) : [];
 	}
 
-	static setData(data: dataType[]) {
+	static setData(data: historyType[]) {
 		localStorage.setItem('data', JSON.stringify(data));
 	}
 

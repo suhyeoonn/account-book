@@ -1,19 +1,20 @@
 <script lang="ts">
 	import { LocalStorage } from '$lib/LocalStorage';
 	import type { accountModel } from '$lib/accountModel';
+	import { cateogryList } from '$lib/category';
 	import Alert from '$lib/components/Alert.svelte';
-	import { accountType, type dataType } from '$lib/types';
+	import { accountType, type historyType } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	const model: accountModel = LocalStorage;
 
-	let history: dataType[] = [];
+	let history: historyType[] = [];
 	onMount(() => {
 		setHistory();
 	});
 
 	const setHistory = () => {
-		history = LocalStorage.get();
+		history = model.get();
 	};
 
 	const getAmount = (amount: number, type: accountType) => {
@@ -31,6 +32,10 @@
 		model.delete(id);
 		setHistory();
 	};
+
+	const getCategory = (category: number) => {
+		return cateogryList.find((c) => c.id === category)?.name;
+	};
 </script>
 
 <div class="flex justify-between">
@@ -46,10 +51,10 @@
 	<Alert message="거래내역을 추가하세요." />
 {:else}
 	<ul>
-		{#each history as { id, date, detail, amount, type }}
+		{#each history as { id, date, category, amount, type }}
 			<li class="grid grid-cols-4 text-gray-500 p-2">
 				<span>{date}</span>
-				<span class="text-gray-800">{detail}</span>
+				<span class="text-gray-800">{getCategory(category)}</span>
 				<span class={getAmountClass(type)}>{getAmount(amount, type)}</span>
 				<button class="btn btn-error btn-xs" on:click={() => onDelete(id)}>remove</button>
 			</li>
