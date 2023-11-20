@@ -47,6 +47,7 @@
 		}}>추가</button
 	>
 </div>
+<!-- TODO Loading -->
 {#if history.length < 1}
 	<Alert message="거래내역을 추가하세요." />
 {:else}

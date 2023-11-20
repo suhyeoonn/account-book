@@ -37,9 +37,13 @@
 	};
 </script>
 
-<!-- TODO label -->
 <form class="flex flex-col gap-10" on:submit={onSubmit}>
-	<input type="date" bind:value={date} required class="input input-bordered input-lg" />
+	<div class="form-control w-full">
+		<label class="label" for="date">
+			<span class="label-text">날짜</span>
+		</label>
+		<input id="date" type="date" bind:value={date} required class="input input-bordered input-lg" />
+	</div>
 	<div class="join">
 		<button
 			type="button"
@@ -58,20 +62,42 @@
 			나간 돈
 		</button>
 	</div>
-	<select class="select select-bordered w-full max-w-xs" bind:value={category}>
-		<option disabled value="0">분류</option>
-		{#each categoryOptions as { id, name }}
-			<option value={id}>{name}</option>
-		{/each}
-	</select>
-	<input type="text" placeholder="설명" bind:value={detail} class="input input-bordered input-lg" />
-	<input
-		type="number"
-		placeholder="금액"
-		bind:value={amount}
-		required
-		class="input input-bordered input-lg"
-		min="0"
-	/>
+	<div class="form-control w-full">
+		<label class="label" for="category">
+			<span class="label-text">분류</span>
+		</label>
+		<select id="category" class="select select-bordered w-full" bind:value={category}>
+			<option disabled value="0">분류 선택</option>
+			{#each categoryOptions as { id, name }}
+				<option value={id}>{name}</option>
+			{/each}
+		</select>
+	</div>
+	<div class="form-control w-full">
+		<label class="label" for="detail">
+			<span class="label-text">설명</span>
+		</label>
+		<input
+			id="detail"
+			type="text"
+			placeholder="설명"
+			bind:value={detail}
+			class="input input-bordered input-lg"
+		/>
+	</div>
+	<div class="form-control w-full">
+		<label class="label" for="amount">
+			<span class="label-text">금액</span>
+		</label>
+		<input
+			id="amount"
+			type="number"
+			placeholder="금액"
+			bind:value={amount}
+			required
+			class="input input-bordered input-lg"
+			min="0"
+		/>
+	</div>
 	<button class="btn btn-primary">입력하기</button>
 </form>
