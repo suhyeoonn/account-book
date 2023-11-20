@@ -9,7 +9,7 @@ export interface saveDataDto {
 }
 
 export interface accountModel {
-	get(): historyType[];
+	get(): Promise<historyType[]>;
 	save(data: saveDataDto): void;
 	delete(id: number): void;
 }

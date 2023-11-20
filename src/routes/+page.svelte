@@ -3,19 +3,15 @@
 	import type { accountModel } from '$lib/accountModel';
 	import { cateogryList } from '$lib/category';
 	import Alert from '$lib/components/Alert.svelte';
-	import { accountType, type historyType } from '$lib/types';
-	import { onMount } from 'svelte';
+	import { accountType } from '$lib/types';
 
 	const model: accountModel = LocalStorage;
 
-	let history: historyType[] = [];
-	onMount(() => {
-		setHistory();
-	});
-
-	const setHistory = () => {
-		history = model.get();
+	const fetchHistory = async () => {
+		return await model.get();
 	};
+
+	let promise = fetchHistory();
 
 	const getAmount = (amount: number, type: accountType) => {
 		return `${type === accountType.INPUT ? '+' : '-'}${amount.toLocaleString('ko-KR')}원`;
@@ -30,7 +26,7 @@
 			return;
 		}
 		model.delete(id);
-		setHistory();
+		fetchHistory();
 	};
 
 	const getCategory = (category: number) => {
@@ -40,6 +36,7 @@
 
 <div class="flex justify-between">
 	<h1>거래 내역 페이지</h1>
+	<!-- TODO 우측 하단으로 이동 -->
 	<button
 		class="btn btn-primary"
 		on:click={() => {
@@ -47,18 +44,23 @@
 		}}>추가</button
 	>
 </div>
-<!-- TODO Loading -->
-{#if history.length < 1}
-	<Alert message="거래내역을 추가하세요." />
-{:else}
-	<ul>
-		{#each history as { id, date, category, amount, type }}
-			<li class="grid grid-cols-4 text-gray-500 p-2">
-				<span>{date}</span>
-				<span class="text-gray-800">{getCategory(category)}</span>
-				<span class={getAmountClass(type)}>{getAmount(amount, type)}</span>
-				<button class="btn btn-error btn-xs" on:click={() => onDelete(id)}>remove</button>
-			</li>
-		{/each}
-	</ul>
-{/if}
+<div class="flex justify-center">
+	{#await promise}
+		<span class="loading loading-spinner loading-lg" />
+	{:then history}
+		{#if history.length < 1}
+			<Alert message="거래내역을 추가하세요." />
+		{:else}
+			<ul>
+				{#each history as { id, date, category, amount, type }}
+					<li class="grid grid-cols-4 text-gray-500 p-2">
+						<span>{date}</span>
+						<span class="text-gray-800">{getCategory(category)}</span>
+						<span class={getAmountClass(type)}>{getAmount(amount, type)}</span>
+						<button class="btn btn-error btn-xs" on:click={() => onDelete(id)}>remove</button>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+	{/await}
+</div>
