@@ -36,15 +36,8 @@
 
 <div class="flex justify-between">
 	<h1>거래 내역 페이지</h1>
-	<!-- TODO 우측 하단으로 이동 -->
-	<button
-		class="btn btn-primary"
-		on:click={() => {
-			location.href = '/add';
-		}}>추가</button
-	>
 </div>
-<div class="flex justify-center">
+<div class="flex justify-center flex-1">
 	{#await promise}
 		<span class="loading loading-spinner loading-lg" />
 	{:then history}
@@ -64,3 +57,23 @@
 		{/if}
 	{/await}
 </div>
+<button
+	class="shadow btn btn-circle btn-error drop-shadow self-end"
+	on:click={() => {
+		location.href = '/add';
+	}}
+>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		class="h-6 w-6"
+		fill="none"
+		viewBox="0 0 24 24"
+		stroke="currentColor"
+		><path
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M6 18L18 6M6 6l12 12"
+		/></svg
+	>
+</button>

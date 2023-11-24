@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<div class="flex flex-col h-screen p-5">
+	<slot />
+</div>
