@@ -31,5 +31,10 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"reflect-metadata": "^0.1.13",
+		"sqlite3": "^5.1.6",
+		"typeorm": "^0.3.17"
+	}
 }
