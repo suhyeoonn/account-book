@@ -8,7 +8,22 @@
 	const model: accountModel = LocalStorage;
 
 	const fetchHistory = async () => {
-		return await model.get();
+		const data = await model.get();
+		const tmp = data.reduce((pre, cur) => {
+			if (pre.length > 0) {
+				const lastEl = pre.slice(-1)[0];
+				if (lastEl[0].date === cur.date) {
+					lastEl.push(cur);
+				} else {
+					pre.push([cur]);
+				}
+			} else {
+				pre.push([cur]);
+			}
+			return pre;
+		}, []);
+		console.log(tmp);
+		return tmp;
 	};
 
 	let promise = fetchHistory();
