@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { LocalStorage } from '$lib/LocalStorage';
 	import type { accountModel } from '$lib/accountModel';
-	import AccountHistoryHeader from '$lib/components/AccountHistoryHeader.svelte';
-	import AccountHistoryItem from '$lib/components/AccountHistoryItem.svelte';
 	import Alert from '$lib/components/Alert.svelte';
+	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 
 	const model: accountModel = LocalStorage;
 
@@ -45,7 +44,6 @@
 <div class="flex justify-between">
 	<h1>거래 내역 페이지</h1>
 </div>
-<!-- TODO 날짜별로 정렬 -->
 <div class="flex flex-col justify-center gap-5 bg-gray-100">
 	{#await promise}
 		<span class="loading loading-spinner loading-lg" />
@@ -53,21 +51,9 @@
 		{#if history.length < 1}
 			<Alert message="거래내역을 추가하세요." />
 		{:else}
-			<ul class="bg-white">
-				<li>dummy</li>
-			</ul>
-			<div class="bg-white p-2">
-				<AccountHistoryHeader />
-				<ul>
-					<!-- TODO 수정 페이지로 이동 -->
-					{#each history as historyItem}
-						<AccountHistoryItem
-							history={historyItem}
-							on:delete={({ detail: id }) => onDelete(id)}
-						/>
-					{/each}
-				</ul>
-			</div>
+			{#each history as historyOfDay}
+				<HistoryOfDayList {historyOfDay} on:delete={({ detail: id }) => onDelete(id)} />
+			{/each}
 		{/if}
 	{/await}
 </div>
