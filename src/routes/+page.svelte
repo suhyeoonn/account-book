@@ -2,6 +2,7 @@
 	import { LocalStorage } from '$lib/LocalStorage';
 	import type { accountModel } from '$lib/accountModel';
 	import Alert from '$lib/components/Alert.svelte';
+	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 
 	const model: accountModel = LocalStorage;
@@ -44,6 +45,8 @@
 <div class="flex justify-between">
 	<h1>거래 내역 페이지</h1>
 </div>
+<!-- TODO 월별로 리스트 표시 -->
+<MonthController />
 <div class="flex flex-col justify-center gap-5 bg-gray-100">
 	{#await promise}
 		<span class="loading loading-spinner loading-lg" />
