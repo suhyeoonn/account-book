@@ -3,10 +3,11 @@
 	import { cateogryList } from '$lib/category';
 	import { accountType } from '$lib/types';
 	import type { accountModel } from '$lib/accountModel';
+	import moment from 'moment';
 
 	const model: accountModel = LocalStorage;
 
-	let date = new Date().toISOString().substring(0, 10);
+	let date = moment().format('YYYY-MM-DD');
 	let type = accountType.INPUT;
 	let detail = '';
 	let amount = 0;
@@ -74,18 +75,6 @@
 		</select>
 	</div>
 	<div class="form-control w-full">
-		<label class="label" for="detail">
-			<span class="label-text">설명</span>
-		</label>
-		<input
-			id="detail"
-			type="text"
-			placeholder="설명"
-			bind:value={detail}
-			class="input input-bordered input-lg"
-		/>
-	</div>
-	<div class="form-control w-full">
 		<label class="label" for="amount">
 			<span class="label-text">금액</span>
 		</label>
@@ -97,6 +86,18 @@
 			required
 			class="input input-bordered input-lg"
 			min="0"
+		/>
+	</div>
+	<div class="form-control w-full">
+		<label class="label" for="detail">
+			<span class="label-text">설명</span>
+		</label>
+		<input
+			id="detail"
+			type="text"
+			placeholder="설명"
+			bind:value={detail}
+			class="input input-bordered input-lg"
 		/>
 	</div>
 	<button class="btn btn-primary">입력하기</button>
