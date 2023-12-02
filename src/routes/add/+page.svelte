@@ -74,6 +74,7 @@
 			{/each}
 		</select>
 	</div>
+	<!-- TODO 0 입력되어 있지 않도록 수정 -->
 	<div class="form-control w-full">
 		<label class="label" for="amount">
 			<span class="label-text">금액</span>
