@@ -4,6 +4,7 @@
 	let gapMonth = 0;
 	let gapYear = 0;
 
+	// TODO store 사용하여 월 변경되면 부모에 반영
 	$: date = moment().add({ year: gapYear, months: gapMonth });
 </script>
 

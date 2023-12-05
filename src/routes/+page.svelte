@@ -7,8 +7,10 @@
 
 	const model: accountModel = LocalStorage;
 
+	let year = 2023;
+	let month = 12;
 	const fetchHistory = async () => {
-		const data = await model.get();
+		const data = await model.get(year, month);
 		const tmp = data.reduce((pre, cur) => {
 			if (pre.length > 0) {
 				const lastEl = pre.slice(-1)[0];
