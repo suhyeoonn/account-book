@@ -4,13 +4,13 @@
 	import Alert from '$lib/components/Alert.svelte';
 	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
+	import { month, year } from '../stores/accountHistory';
+	import type { historyType } from '$lib/types';
 
 	const model: accountModel = LocalStorage;
 
-	let year = 2023;
-	let month = 12;
 	const fetchHistory = async () => {
-		const data = await model.get(year, month);
+		const data = await model.get($year, $month);
 		const tmp = data.reduce((pre, cur) => {
 			if (pre.length > 0) {
 				const lastEl = pre.slice(-1)[0];
@@ -28,7 +28,10 @@
 		return tmp;
 	};
 
-	let promise = fetchHistory();
+	let promise: Promise<historyType[][]>;
+	month.subscribe(() => {
+		promise = fetchHistory();
+	});
 
 	const onDelete = async (id: number) => {
 		if (!confirm('삭제하시겠습니까?')) {
