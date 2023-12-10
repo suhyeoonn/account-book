@@ -13,6 +13,12 @@ export class LocalStorage {
 		return data.filter((d) => d.date.includes(`${year}-${month}`));
 	}
 
+	static async getById(id: number): Promise<historyType> {
+		const savedData = await LocalStorage.getAllData();
+		const foundData = savedData.filter((data) => data.id === id);
+		return foundData[0];
+	}
+
 	static async getAllData(): Promise<historyType[]> {
 		const jsonData = localStorage.getItem('data');
 		return jsonData ? JSON.parse(jsonData) : [];

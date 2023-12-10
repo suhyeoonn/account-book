@@ -9,12 +9,15 @@ export default class HistoryItem {
 	#amount;
 	#category;
 	constructor(
-		date = moment().format('YYYY-MM-DD'),
-		type = accountType.INPUT,
-		detail = '',
-		amount = 0,
-		category = '0'
+		data = {
+			date: moment().format('YYYY-MM-DD'),
+			type: accountType.INPUT,
+			detail: '',
+			amount: 0,
+			category: '0'
+		}
 	) {
+		const { date, type, detail, amount, category } = data;
 		this.#date = date;
 		this.#type = type;
 		this.#detail = detail;

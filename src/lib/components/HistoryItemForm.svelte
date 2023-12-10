@@ -4,8 +4,9 @@
 	import type { accountModel } from '$lib/accountModel';
 	import HistoryItem from '$lib/classes/HistoryItem';
 
+	export let data: HistoryItem = new HistoryItem();
+
 	const model: accountModel = LocalStorage;
-	const data = new HistoryItem();
 
 	$: categoryOptions = data.categoryOptions;
 
