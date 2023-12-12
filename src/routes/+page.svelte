@@ -51,6 +51,7 @@
 	<h1>거래 내역 페이지</h1>
 </div>
 <MonthController />
+<!-- TODO 월별 수입/지출 합계 표시 -->
 <div class="flex flex-col justify-center gap-5 bg-gray-100">
 	{#await promise}
 		<span class="loading loading-spinner loading-lg" />

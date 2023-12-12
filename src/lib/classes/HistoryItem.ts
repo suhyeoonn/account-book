@@ -14,7 +14,7 @@ export default class HistoryItem {
 			type: accountType.INPUT,
 			detail: '',
 			amount: 0,
-			category: '0'
+			category: 0
 		}
 	) {
 		const { date, type, detail, amount, category } = data;
@@ -55,11 +55,11 @@ export default class HistoryItem {
 	}
 
 	get category(): number {
-		return Number(this.#category);
+		return this.#category;
 	}
 
 	set category(value: string) {
-		this.#category = value;
+		this.#category = Number(value);
 	}
 
 	get categoryOptions() {
