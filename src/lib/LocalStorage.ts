@@ -1,4 +1,4 @@
-import type { saveDataDto } from './accountModel';
+import type { saveDataDto, updateDataDto } from './accountModel';
 import type { historyType } from './types';
 
 export class LocalStorage {
@@ -11,6 +11,11 @@ export class LocalStorage {
 	static async get(year: number, month: number): Promise<historyType[]> {
 		const data: historyType[] = await this.getAllData();
 		return data.filter((d) => d.date.includes(`${year}-${month}`));
+	}
+
+	static async update(dataToUpdate: updateDataDto) {
+		const savedData = await LocalStorage.getAllData();
+		LocalStorage.setData(savedData.map((d) => (d.id === dataToUpdate.id ? dataToUpdate : d)));
 	}
 
 	static async getById(id: number): Promise<historyType> {

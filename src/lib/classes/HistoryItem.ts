@@ -3,6 +3,7 @@ import { cateogryList } from '$lib/category';
 import { accountType } from '$lib/types';
 
 export default class HistoryItem {
+	#id;
 	#date;
 	#type;
 	#detail;
@@ -10,6 +11,7 @@ export default class HistoryItem {
 	#category;
 	constructor(
 		data = {
+			id: 0,
 			date: moment().format('YYYY-MM-DD'),
 			type: accountType.INPUT,
 			detail: '',
@@ -17,12 +19,17 @@ export default class HistoryItem {
 			category: 0
 		}
 	) {
-		const { date, type, detail, amount, category } = data;
+		const { id, date, type, detail, amount, category } = data;
+		this.#id = id;
 		this.#date = date;
 		this.#type = type;
 		this.#detail = detail;
 		this.#amount = amount;
 		this.#category = category;
+	}
+
+	get id() {
+		return this.#id;
 	}
 
 	get date() {

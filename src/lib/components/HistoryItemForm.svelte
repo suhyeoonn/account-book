@@ -1,26 +1,18 @@
 <script lang="ts">
-	import { LocalStorage } from '$lib/LocalStorage';
 	import { accountType } from '$lib/types';
-	import type { accountModel } from '$lib/accountModel';
 	import HistoryItem from '$lib/classes/HistoryItem';
+	import { createEventDispatcher } from 'svelte';
 
 	export let data: HistoryItem = new HistoryItem();
 
-	const model: accountModel = LocalStorage;
-
 	$: categoryOptions = data.categoryOptions;
+
+	const dispatch = createEventDispatcher();
 
 	const onSubmit = (e: Event) => {
 		e.preventDefault();
 		if (!data.validate()) return;
-		model.save({
-			date: data.date,
-			detail: data.detail,
-			category: data.category,
-			amount: data.amount,
-			type: data.type
-		});
-		location.href = '/';
+		dispatch('submit', data);
 	};
 </script>
 
@@ -93,5 +85,5 @@
 			class="input input-bordered input-lg"
 		/>
 	</div>
-	<button class="btn btn-primary">입력하기</button>
+	<button class="btn btn-primary">저장하기</button>
 </form>
