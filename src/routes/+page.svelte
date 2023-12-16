@@ -5,12 +5,27 @@
 	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 	import { month, year } from '../stores/accountHistory';
-	import type { historyType } from '$lib/types';
+	import { accountType, type historyType } from '$lib/types';
 
 	const model: accountModel = LocalStorage;
 
+	let inputTotal = 0,
+		outputTotal = 0,
+		result = 0;
 	const fetchHistory = async () => {
 		const data = await model.get($year, $month);
+
+		// TOOD 어디서 많이 본 코드다..?
+		inputTotal = data
+			.filter((d) => d.type === accountType.INPUT)
+			.reduce((pre, cur) => pre + cur.amount, 0);
+
+		outputTotal = data
+			.filter((d) => d.type === accountType.OUTPUT)
+			.reduce((pre, cur) => pre + cur.amount, 0);
+
+		result = inputTotal - outputTotal;
+
 		const tmp = data.reduce((pre, cur) => {
 			if (pre.length > 0) {
 				const lastEl = pre.slice(-1)[0];
@@ -51,11 +66,19 @@
 	<h1>거래 내역 페이지</h1>
 </div>
 <MonthController />
-<!-- TODO 월별 수입/지출 합계 표시 -->
-<div class="flex flex-col justify-center gap-5 bg-gray-100">
-	{#await promise}
-		<span class="loading loading-spinner loading-lg" />
-	{:then history}
+{#await promise}
+	<span class="loading loading-spinner loading-lg" />
+{:then history}
+	<!-- TODO 수입, 지출 색상 변경 -->
+	<div class="grid grid-cols-3">
+		<div>수입</div>
+		<div>지출</div>
+		<div>합계</div>
+		<div>{inputTotal}원</div>
+		<div>{outputTotal}원</div>
+		<div>{result}원</div>
+	</div>
+	<div class="flex flex-col justify-center gap-5 bg-gray-100">
 		{#if history.length < 1}
 			<Alert message="거래내역을 추가하세요." />
 		{:else}
@@ -63,8 +86,8 @@
 				<HistoryOfDayList {historyOfDay} on:delete={({ detail: id }) => onDelete(id)} />
 			{/each}
 		{/if}
-	{/await}
-</div>
+	</div>
+{/await}
 <button
 	class="fixed bottom-0 my-5 shadow btn btn-circle btn-error drop-shadow self-end text-white"
 	on:click={() => {
