@@ -23,7 +23,7 @@
 </script>
 
 <li class="grid grid-cols-4 text-gray-500 py-2">
-	<a href="/edit" class="grid grid-cols-3 col-span-3">
+	<a href="/history/{id}" class="grid grid-cols-3 col-span-3">
 		<span>{date}</span>
 		<span class="text-gray-800">{getCategory(category)}</span>
 		<span class={getAmountClass(type)}>{getAmount(amount, type)}</span>

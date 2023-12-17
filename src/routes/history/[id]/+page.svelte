@@ -4,10 +4,12 @@
 	import HistoryItem from '$lib/classes/HistoryItem';
 	import HistoryItemForm from '$lib/components/HistoryItemForm.svelte';
 
+	export let data;
+
 	const model: accountModel = LocalStorage;
 
 	const fetchData = async () => {
-		return await model.getById(15); // TODO: 동적으로 변경
+		return await model.getById(Number(data.id));
 	};
 	let promise = fetchData();
 
