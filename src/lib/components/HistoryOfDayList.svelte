@@ -20,7 +20,6 @@
 		outputTotal={getTotal(accountType.OUTPUT)}
 	/>
 	<ul>
-		<!-- TODO 수정 페이지로 이동 -->
 		{#each historyOfDay as historyItem}
 			<AccountHistoryItem history={historyItem} on:delete />
 		{/each}

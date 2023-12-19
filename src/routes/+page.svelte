@@ -74,9 +74,9 @@
 		<div>수입</div>
 		<div>지출</div>
 		<div>합계</div>
-		<div>{inputTotal}원</div>
-		<div>{outputTotal}원</div>
-		<div>{result}원</div>
+		<div>{inputTotal.toLocaleString('ko-KR')}원</div>
+		<div>{outputTotal.toLocaleString('ko-KR')}원</div>
+		<div>{result.toLocaleString('ko-KR')}원</div>
 	</div>
 	<div class="flex flex-col justify-center gap-5 bg-gray-100">
 		{#if history.length < 1}
