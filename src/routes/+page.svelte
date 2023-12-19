@@ -64,6 +64,14 @@
 
 <div class="flex justify-between">
 	<h1>거래 내역 페이지</h1>
+	<button
+		class="shadow btn btn-circle bg-base-300 drop-shadow self-end text-white"
+		on:click={() => {
+			location.href = '/category';
+		}}
+	>
+		<span class="material-symbols-rounded"> settings </span>
+	</button>
 </div>
 <MonthController />
 {#await promise}
