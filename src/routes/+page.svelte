@@ -99,7 +99,7 @@
 <button
 	class="fixed bottom-0 my-5 shadow btn btn-circle btn-error drop-shadow self-end text-white"
 	on:click={() => {
-		location.href = '/add';
+		location.href = '/history/add';
 	}}
 >
 	<span class="material-symbols-rounded"> add </span>
