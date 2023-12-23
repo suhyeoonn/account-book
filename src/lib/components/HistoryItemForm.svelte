@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { accountType } from '$lib/types';
 	import HistoryItem from '$lib/classes/HistoryItem';
 	import { createEventDispatcher } from 'svelte';
+	import AccountTypeButtons from './\bAccountTypeButtons.svelte';
 
 	export let data: HistoryItem = new HistoryItem();
 
@@ -29,24 +29,9 @@
 			class="input input-bordered input-lg"
 		/>
 	</div>
-	<div class="join">
-		<button
-			type="button"
-			class="btn join-item"
-			class:btn-secondary={data.type === accountType.INPUT}
-			on:click={() => (data.type = accountType.INPUT)}
-		>
-			들어온 돈
-		</button>
-		<button
-			type="button"
-			class="btn join-item"
-			class:btn-accent={data.type === accountType.OUTPUT}
-			on:click={() => (data.type = accountType.OUTPUT)}
-		>
-			나간 돈
-		</button>
-	</div>
+
+	<AccountTypeButtons bind:type={data.type} />
+
 	<div class="form-control w-full">
 		<label class="label" for="category">
 			<span class="label-text">분류</span>

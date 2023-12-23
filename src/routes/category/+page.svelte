@@ -11,4 +11,4 @@
 	{/each}
 </ul>
 <!-- TODO cateogry add 페이지로 이동 -->
-<button class="btn btn-primary">ADD</button>
+<button class="btn btn-primary" on:click={() => (location.href = '/category/add')}>ADD</button>
