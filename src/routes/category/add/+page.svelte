@@ -4,9 +4,13 @@
 
 	let type = accountType.OUTPUT;
 	let name = '';
+
+	const onSubmit = () => {
+		console.log(type, name);
+	};
 </script>
 
-<form class="flex flex-col gap-10">
+<form class="flex flex-col gap-10" on:submit={onSubmit}>
 	<AccountTypeButtons bind:type />
 
 	<div class="form-control w-full">
