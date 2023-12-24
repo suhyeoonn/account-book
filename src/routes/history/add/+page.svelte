@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { LocalStorage } from '$lib/LocalStorage';
-	import type { accountModel } from '$lib/accountModel';
+	import { AccountHistoryModel } from '$lib/models/AccountHistoryModel';
+	import type { accountModel } from '$lib/models/accountModel';
 	import type HistoryItem from '$lib/classes/HistoryItem';
 	import HistoryItemForm from '$lib/components/HistoryItemForm.svelte';
 
-	const model: accountModel = LocalStorage;
+	const model: accountModel = AccountHistoryModel;
 
 	const onSubmit = (data: HistoryItem) => {
 		model.save({

@@ -1,4 +1,4 @@
-import type { historyType } from './types';
+import type { historyType } from '../types';
 
 export interface saveDataDto {
 	date: string;

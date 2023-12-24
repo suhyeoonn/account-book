@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { LocalStorage } from '$lib/LocalStorage';
-	import type { accountModel } from '$lib/accountModel';
+	import { AccountHistoryModel } from '$lib/models/AccountHistoryModel';
+	import type { accountModel } from '$lib/models/accountModel';
 	import Alert from '$lib/components/Alert.svelte';
 	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 	import { month, year } from '../stores/accountHistory';
 	import { accountType, type historyType } from '$lib/types';
 
-	const model: accountModel = LocalStorage;
+	const model: accountModel = AccountHistoryModel;
 
 	let inputTotal = 0,
 		outputTotal = 0,

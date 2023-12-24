@@ -1,11 +1,11 @@
 import type { saveDataDto, updateDataDto } from './accountModel';
-import type { historyType } from './types';
+import type { historyType } from '../types';
 
-export class LocalStorage {
+export class AccountHistoryModel {
 	static async save(data: saveDataDto) {
-		const savedData = await LocalStorage.getAllData();
+		const savedData = await AccountHistoryModel.getAllData();
 		const id = savedData.length < 1 ? 1 : savedData.slice(-1)[0].id + 1;
-		LocalStorage.setData(savedData.concat({ id, ...data }));
+		AccountHistoryModel.setData(savedData.concat({ id, ...data }));
 	}
 
 	static async get(year: number, month: number): Promise<historyType[]> {
@@ -14,12 +14,14 @@ export class LocalStorage {
 	}
 
 	static async update(dataToUpdate: updateDataDto) {
-		const savedData = await LocalStorage.getAllData();
-		LocalStorage.setData(savedData.map((d) => (d.id === dataToUpdate.id ? dataToUpdate : d)));
+		const savedData = await AccountHistoryModel.getAllData();
+		AccountHistoryModel.setData(
+			savedData.map((d) => (d.id === dataToUpdate.id ? dataToUpdate : d))
+		);
 	}
 
 	static async getById(id: number): Promise<historyType> {
-		const savedData = await LocalStorage.getAllData();
+		const savedData = await AccountHistoryModel.getAllData();
 		const foundData = savedData.filter((data) => data.id === id);
 		return foundData[0];
 	}
@@ -34,8 +36,8 @@ export class LocalStorage {
 	}
 
 	static async delete(id: number) {
-		const savedData = await LocalStorage.getAllData();
+		const savedData = await AccountHistoryModel.getAllData();
 		const filteredData = savedData.filter((data) => data.id !== id);
-		LocalStorage.setData(filteredData);
+		AccountHistoryModel.setData(filteredData);
 	}
 }
