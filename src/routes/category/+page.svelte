@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { CategoryModel } from '$lib/models/CategoryModel';
+	import { accountType, type cateogryType } from '$lib/types';
 
-	// TODO server.js에서 가져오도록 변경 https://learn.svelte.dev/tutorial/page-data
-	const cateogryModel = new CategoryModel();
-	const promise = cateogryModel.fetchCategory();
+	export let data: { categoryList: cateogryType[] };
 </script>
 
-<h1>category</h1>
-
-<!-- TODO category type class 추가 -->
-{#await promise}
-	<!-- TODO loading component -->
-	loading...
-{:then cateogryList}
-	<ul>
-		{#each cateogryList as category}
-			<li>{category.name} {category.type}</li>
-		{/each}
-	</ul>
-	<button class="btn btn-primary" on:click={() => (location.href = '/category/add')}>ADD</button>
-{/await}
+<h1 class="text-2xl mb-5">Category List</h1>
+<ul class="mb-5">
+	{#each data.categoryList as category}
+		<li class="p-1">
+			{category.name}
+			<!-- TODO accountType class 생성 -->
+			<span
+				class="text-white p-1 rounded-md"
+				class:bg-secondary={category.type === accountType.INPUT}
+				class:bg-accent={category.type === accountType.OUTPUT}
+				>{category.type === accountType.INPUT ? '수입' : '지출'}</span
+			>
+		</li>
+	{/each}
+</ul>
+<button class="btn btn-primary" on:click={() => (location.href = '/category/add')}>ADD</button>
