@@ -6,21 +6,16 @@
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 	import { month, year } from '../stores/accountHistory';
 	import { accountType, type historyType } from '$lib/types';
-	import { db } from '$lib/firebase/index';
-	import { collection, getDocs } from 'firebase/firestore';
+	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
 
 	const model: accountModel = AccountHistoryModel;
+	const firebase: accountModel = AccountHistoryFirebase;
 
 	let inputTotal = 0,
 		outputTotal = 0,
 		result = 0;
 	const fetchHistory = async () => {
-		const querySnapshot = await getDocs(collection(db, 'history'));
-		querySnapshot.forEach((doc) => {
-			console.log(doc.data());
-		});
-
-		const data = await model.get($year, $month);
+		const data = await firebase.get($year, $month);
 
 		// TOOD 어디서 많이 본 코드다..?
 		inputTotal = data
