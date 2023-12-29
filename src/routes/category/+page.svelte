@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { accountType, type cateogryType } from '$lib/types';
+	import { AccountType } from '$lib/classes/AccountType';
+	import type { cateogryType } from '$lib/types';
 
 	export let data: { categoryList: cateogryType[] };
 </script>
@@ -9,12 +10,11 @@
 	{#each data.categoryList as category}
 		<li class="p-1">
 			{category.name}
-			<!-- TODO accountType class 생성 -->
 			<span
 				class="text-white p-1 rounded-md"
-				class:bg-secondary={category.type === accountType.INPUT}
-				class:bg-accent={category.type === accountType.OUTPUT}
-				>{category.type === accountType.INPUT ? '수입' : '지출'}</span
+				class:bg-secondary={category.type === AccountType.INPUT}
+				class:bg-accent={category.type === AccountType.OUTPUT}
+				>{category.type === AccountType.INPUT ? '수입' : '지출'}</span
 			>
 		</li>
 	{/each}

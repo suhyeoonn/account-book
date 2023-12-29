@@ -30,7 +30,7 @@
 		/>
 	</div>
 
-	<AccountTypeButtons bind:type={data.type} />
+	<AccountTypeButtons bind:accountType={data.type} />
 
 	<div class="form-control w-full">
 		<label class="label" for="category">

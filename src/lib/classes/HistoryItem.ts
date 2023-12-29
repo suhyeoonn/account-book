@@ -1,11 +1,11 @@
 import moment from 'moment';
 import { cateogryList } from '$lib/category';
-import { accountType } from '$lib/types';
+import { AccountType } from './AccountType';
 
 export default class HistoryItem {
 	#id;
 	#date;
-	#type;
+	#type: AccountType;
 	#detail;
 	#amount;
 	#category;
@@ -13,7 +13,7 @@ export default class HistoryItem {
 		data = {
 			id: 0,
 			date: moment().format('YYYY-MM-DD'),
-			type: accountType.INPUT,
+			type: AccountType.INPUT,
 			detail: '',
 			amount: 0,
 			category: 0
@@ -22,7 +22,7 @@ export default class HistoryItem {
 		const { id, date, type, detail, amount, category } = data;
 		this.#id = id;
 		this.#date = date;
-		this.#type = type;
+		this.#type = new AccountType(type);
 		this.#detail = detail;
 		this.#amount = amount;
 		this.#category = category;

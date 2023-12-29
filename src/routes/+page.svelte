@@ -5,11 +5,11 @@
 	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 	import { month, year } from '../stores/accountHistory';
-	import { accountType, type historyType } from '$lib/types';
 	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
+	import type { historyType } from '$lib/types';
 
 	const model: accountModel = AccountHistoryModel;
-	const firebase: accountModel = AccountHistoryFirebase;
+	const firebase = AccountHistoryFirebase;
 
 	let inputTotal = 0,
 		outputTotal = 0,
@@ -17,13 +17,12 @@
 	const fetchHistory = async () => {
 		const data = await firebase.get($year, $month);
 
-		// TOOD 어디서 많이 본 코드다..?
 		inputTotal = data
-			.filter((d) => d.type === accountType.INPUT)
+			.filter((d) => d.type.isInputType(d.type))
 			.reduce((pre, cur) => pre + cur.amount, 0);
 
 		outputTotal = data
-			.filter((d) => d.type === accountType.OUTPUT)
+			.filter((d) => d.type.isOutputType(d.type))
 			.reduce((pre, cur) => pre + cur.amount, 0);
 
 		result = inputTotal - outputTotal;

@@ -1,23 +1,23 @@
 <script lang="ts">
-	import { accountType } from '$lib/types';
+	import { AccountType } from '$lib/classes/AccountType';
 
-	export let type: accountType;
+	export let accountType: AccountType;
 </script>
 
 <div class="join">
 	<button
 		type="button"
 		class="btn join-item"
-		class:btn-secondary={type === accountType.INPUT}
-		on:click={() => (type = accountType.INPUT)}
+		class:btn-secondary={accountType.isInputType()}
+		on:click={() => (accountType.type = AccountType.INPUT)}
 	>
 		들어온 돈
 	</button>
 	<button
 		type="button"
 		class="btn join-item"
-		class:btn-accent={type === accountType.OUTPUT}
-		on:click={() => (type = accountType.OUTPUT)}
+		class:btn-accent={accountType.isOutputType()}
+		on:click={() => (accountType.type = AccountType.OUTPUT)}
 	>
 		나간 돈
 	</button>

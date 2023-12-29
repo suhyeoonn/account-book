@@ -1,8 +1,8 @@
 <script>
+	import { AccountType } from '$lib/classes/AccountType';
 	import AccountTypeButtons from '$lib/components/\bAccountTypeButtons.svelte';
-	import { accountType } from '$lib/types';
 
-	let type = accountType.OUTPUT;
+	let type = new AccountType(AccountType.OUTPUT);
 	let name = '';
 
 	const onSubmit = () => {
@@ -11,7 +11,7 @@
 </script>
 
 <form class="flex flex-col gap-10" on:submit={onSubmit}>
-	<AccountTypeButtons bind:type />
+	<AccountTypeButtons bind:accountType={type} />
 
 	<div class="form-control w-full">
 		<label class="label" for="date">
