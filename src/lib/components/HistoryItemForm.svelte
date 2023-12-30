@@ -2,10 +2,12 @@
 	import HistoryItem from '$lib/classes/HistoryItem';
 	import { createEventDispatcher } from 'svelte';
 	import AccountTypeButtons from './\bAccountTypeButtons.svelte';
+	import { CategoryModel } from '$lib/models/CategoryModel';
 
 	export let data: HistoryItem = new HistoryItem();
 
-	$: categoryOptions = data.categoryOptions;
+	const categoryModel = new CategoryModel();
+	$: categoryOptions = categoryModel.getFilteredList(data.type);
 
 	const dispatch = createEventDispatcher();
 

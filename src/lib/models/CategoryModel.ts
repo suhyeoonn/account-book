@@ -1,6 +1,7 @@
 import { AccountType } from '$lib/classes/AccountType';
 
 // TODO category class Create
+// TODO store에 카테고리 저장해서 한번만 불러오기
 interface cateogryType {
 	id: number;
 	name: string;
@@ -20,7 +21,19 @@ export class CategoryModel {
 		{ id: 10, name: '💊 건강', type: AccountType.OUTPUT }
 	];
 
+	get categoryList() {
+		return this.#category;
+	}
+
 	async fetchCategory() {
 		return this.#category;
+	}
+
+	getFilteredList(type: number) {
+		return this.#category.filter((c) => c.type === type);
+	}
+
+	getCategoryName(category: number) {
+		return this.#category.find((c) => c.id === category)?.name;
 	}
 }

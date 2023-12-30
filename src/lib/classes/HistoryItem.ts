@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { cateogryList } from '$lib/category';
 import { AccountType } from './AccountType';
 
 export default class HistoryItem {
@@ -67,10 +66,6 @@ export default class HistoryItem {
 
 	set category(value: string) {
 		this.#category = Number(value);
-	}
-
-	get categoryOptions() {
-		return cateogryList.filter((c) => c.type === this.#type);
 	}
 
 	validate() {
