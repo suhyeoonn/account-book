@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { AccountType } from '$lib/classes/AccountType';
-	import type { cateogryType } from '$lib/types';
+	import type { Category } from '$lib/classes/Category';
 
-	export let data: { categoryList: cateogryType[] };
+	export let data: { categoryList: Category[] };
 </script>
 
 <h1 class="text-2xl mb-5">Category List</h1>
@@ -12,9 +11,8 @@
 			{category.name}
 			<span
 				class="text-white p-1 rounded-md"
-				class:bg-secondary={category.type === AccountType.INPUT}
-				class:bg-accent={category.type === AccountType.OUTPUT}
-				>{category.type === AccountType.INPUT ? '수입' : '지출'}</span
+				class:bg-secondary={category.type.isInputType()}
+				class:bg-accent={category.type.isOutputType()}>{category.type.typeName}</span
 			>
 		</li>
 	{/each}

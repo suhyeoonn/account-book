@@ -14,7 +14,16 @@ export class AccountType {
 	isOutputType() {
 		return this.#type === AccountType.OUTPUT;
 	}
+
 	set type(type: number) {
 		this.#type = type;
+	}
+
+	get type() {
+		return this.#type;
+	}
+
+	get typeName() {
+		return this.isInputType() ? '수입' : '지출';
 	}
 }

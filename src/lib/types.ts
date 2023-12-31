@@ -11,9 +11,3 @@ export interface historyType {
 	amount: number;
 	category: number;
 }
-
-export interface cateogryType {
-	id: number;
-	name: string;
-	type: accountType;
-}
