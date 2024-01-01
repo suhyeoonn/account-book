@@ -20,7 +20,7 @@ export interface updateDataDto {
 export interface accountModel {
 	get(year: number, month: number): Promise<historyType[]>;
 	getById(id: number): Promise<historyType>;
-	save(data: saveDataDto): void;
+	save(data: saveDataDto): Promise<boolean>;
 	delete(id: number): Promise<void>;
 	update(data: updateDataDto): void;
 }

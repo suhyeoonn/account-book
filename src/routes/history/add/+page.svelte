@@ -1,19 +1,23 @@
 <script lang="ts">
-	import { AccountHistoryModel } from '$lib/models/AccountHistoryModel';
 	import type { accountModel } from '$lib/models/accountModel';
 	import type HistoryItem from '$lib/classes/HistoryItem';
 	import HistoryItemForm from '$lib/components/HistoryItemForm.svelte';
+	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
 
-	const model: accountModel = AccountHistoryModel;
+	const firebase: accountModel = AccountHistoryFirebase;
 
-	const onSubmit = (data: HistoryItem) => {
-		model.save({
+	const onSubmit = async (data: HistoryItem) => {
+		const result = await firebase.save({
 			date: data.date,
 			detail: data.detail,
 			category: data.category,
 			amount: data.amount,
-			type: data.type
+			type: data.type.type
 		});
+		if (!result) {
+			alert('error');
+			return;
+		}
 		location.href = '/';
 	};
 </script>
