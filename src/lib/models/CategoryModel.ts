@@ -1,9 +1,16 @@
 import { AccountType } from '$lib/classes/AccountType';
-import { Category } from '$lib/classes/Category';
+import type { Category } from '$lib/classes/Category';
+import { db } from '$lib/firebase';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 // TODO store에 카테고리 저장해서 한번만 불러오기
-export interface cateogryDto {
+export interface getCateogryDto {
 	id: number;
+	name: string;
+	type: number;
+}
+
+interface saveCateogryDto {
 	name: string;
 	type: number;
 }
@@ -15,7 +22,7 @@ export class CategoryModel {
 		this.#category = [];
 	}
 	async fetchCategory() {
-		const categoryList: cateogryDto[] = [
+		const categoryList: getCateogryDto[] = [
 			{ id: 1, name: '💰 월급', type: AccountType.INPUT },
 			{ id: 2, name: '📈 부수입', type: AccountType.INPUT },
 			{ id: 3, name: '👶 아동수당', type: AccountType.INPUT },
@@ -26,8 +33,15 @@ export class CategoryModel {
 			{ id: 9, name: '📞 주거/통신', type: AccountType.OUTPUT },
 			{ id: 10, name: '💊 건강', type: AccountType.OUTPUT }
 		];
-		this.#category = categoryList.map(({ id, name, type }) => new Category(id, name, type));
-		return this.#category;
+		return categoryList;
+	}
+
+	async save(data: saveCateogryDto) {
+		try {
+			await addDoc(collection(db, 'categories'), data);
+		} catch (e) {
+			console.error('Error adding document: ', e);
+		}
 	}
 
 	// TODO store로 옮긴 후 제거

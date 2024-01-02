@@ -1,12 +1,18 @@
 <script>
 	import { AccountType } from '$lib/classes/AccountType';
 	import AccountTypeButtons from '$lib/components/\bAccountTypeButtons.svelte';
+	import { CategoryModel } from '$lib/models/CategoryModel';
 
 	let type = new AccountType(AccountType.OUTPUT);
 	let name = '';
 
-	const onSubmit = () => {
-		console.log(type, name);
+	const onSubmit = async () => {
+		try {
+			await new CategoryModel().save({ name, type: 0 }); // TODO type
+			location.href = '/category';
+		} catch (e) {
+			console.error(e);
+		}
 	};
 </script>
 
