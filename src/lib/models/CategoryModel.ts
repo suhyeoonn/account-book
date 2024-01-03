@@ -36,6 +36,16 @@ export class CategoryModel {
 		return categoryList;
 	}
 
+	async getAllCategory() {
+		const querySnapshot = await getDocs(collection(db, 'categories'));
+		let data: getCateogryDto[] = [];
+		querySnapshot.forEach((doc) => {
+			const { id, name, type } = doc.data();
+			data.push({ id, name, type });
+		});
+		return data;
+	}
+
 	async save(data: saveCateogryDto) {
 		try {
 			await addDoc(collection(db, 'categories'), data);
