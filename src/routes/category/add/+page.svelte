@@ -3,12 +3,12 @@
 	import AccountTypeButtons from '$lib/components/\bAccountTypeButtons.svelte';
 	import { CategoryModel } from '$lib/models/CategoryModel';
 
-	let type = new AccountType(AccountType.OUTPUT);
+	let type = AccountType.OUTPUT;
 	let name = '';
 
 	const onSubmit = async () => {
 		try {
-			await new CategoryModel().save({ name, type: 0 }); // TODO type
+			await new CategoryModel().save({ name, type });
 			location.href = '/category';
 		} catch (e) {
 			console.error(e);
@@ -17,7 +17,7 @@
 </script>
 
 <form class="flex flex-col gap-10" on:submit={onSubmit}>
-	<AccountTypeButtons bind:accountType={type} />
+	<AccountTypeButtons bind:type />
 
 	<div class="form-control w-full">
 		<label class="label" for="date">
