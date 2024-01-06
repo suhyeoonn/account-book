@@ -7,6 +7,7 @@
 	import { month, year } from '../stores/accountHistory';
 	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
 	import type { historyType } from '$lib/types';
+	import { AccountType } from '$lib/classes/AccountType';
 
 	const model: accountModel = AccountHistoryModel;
 	const firebase = AccountHistoryFirebase;
@@ -18,11 +19,11 @@
 		const data = await firebase.get($year, $month);
 
 		inputTotal = data
-			.filter((d) => d.type.isInputType(d.type))
+			.filter((d) => AccountType.isInputType(d.type))
 			.reduce((pre, cur) => pre + cur.amount, 0);
 
 		outputTotal = data
-			.filter((d) => d.type.isOutputType(d.type))
+			.filter((d) => AccountType.isOutputType(d.type))
 			.reduce((pre, cur) => pre + cur.amount, 0);
 
 		result = inputTotal - outputTotal;

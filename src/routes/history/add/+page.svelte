@@ -12,7 +12,7 @@
 			detail: data.detail,
 			category: data.category,
 			amount: data.amount,
-			type: data.type.type
+			type: data.type
 		});
 		if (!result) {
 			alert('error');

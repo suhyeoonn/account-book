@@ -59,9 +59,8 @@ export class CategoryModel {
 		return this.#category;
 	}
 
-	getFilteredList(type: AccountType) {
-		// TODO AccountType static 으로 변경하거나 제거하기
-		return this.#category.filter((c) => c.type.type === type.type);
+	getFilteredList(type: number) {
+		return this.#category.filter((c) => c.type === type);
 	}
 
 	getCategoryName(category: number) {

@@ -4,7 +4,7 @@ import { AccountType } from './AccountType';
 export default class HistoryItem {
 	#id;
 	#date;
-	#type: AccountType;
+	#type;
 	#detail;
 	#amount;
 	#category;
@@ -21,7 +21,7 @@ export default class HistoryItem {
 		const { id, date, type, detail, amount, category } = data;
 		this.#id = id;
 		this.#date = date;
-		this.#type = new AccountType(type);
+		this.#type = type;
 		this.#detail = detail;
 		this.#amount = amount;
 		this.#category = category;
@@ -39,7 +39,7 @@ export default class HistoryItem {
 		return this.#type;
 	}
 
-	set type(type: accountType) {
+	set type(type: number) {
 		this.#type = type;
 		this.category = '0';
 	}
