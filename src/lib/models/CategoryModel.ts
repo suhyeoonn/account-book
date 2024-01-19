@@ -1,7 +1,6 @@
 import { AccountType } from '$lib/classes/AccountType';
 import type { Category } from '$lib/classes/Category';
-import { db } from '$lib/firebase';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { PrismaClient } from '@prisma/client';
 
 // TODO store에 카테고리 저장해서 한번만 불러오기
 export interface getCateogryDto {
@@ -17,9 +16,11 @@ interface saveCateogryDto {
 
 export class CategoryModel {
 	#category: Category[];
+	#prisma;
 
 	constructor() {
 		this.#category = [];
+		this.#prisma = new PrismaClient();
 	}
 	async fetchCategory() {
 		const categoryList: getCateogryDto[] = [
@@ -37,20 +38,21 @@ export class CategoryModel {
 	}
 
 	async getAllCategory() {
-		const querySnapshot = await getDocs(collection(db, 'categories'));
-		let data: getCateogryDto[] = [];
-		querySnapshot.forEach((doc) => {
-			const { id, name, type } = doc.data();
-			data.push({ id, name, type });
-		});
-		return data;
+		return await this.#prisma.category.findMany();
 	}
 
 	async save(data: saveCateogryDto) {
 		try {
-			await addDoc(collection(db, 'categories'), data);
+			await this.#prisma.category.create({
+				data: {
+					name: data.name,
+					type: data.type
+				}
+			});
+			await this.#prisma.$disconnect();
 		} catch (e) {
-			console.error('Error adding document: ', e);
+			console.error(e);
+			await this.#prisma.$disconnect();
 		}
 	}
 
