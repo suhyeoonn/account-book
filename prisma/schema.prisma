@@ -7,14 +7,17 @@ model Category {
   type Int
 }
 
-// model Post {
-//   id        Int     @id @default(autoincrement())
-//   title     String
-//   content   String?
-//   published Boolean @default(false)
-//   author    User    @relation(fields: [authorId], references: [id])
-//   authorId  Int
-// }
+model AccountHistory {
+  id  Int     @id @default(autoincrement())
+  date  DateTime
+  type   Int
+  detail String?
+  category Int
+  amount  Int
+}
+
+  // category    Category    @relation(fields: [type], references: [id])
+
 
 generator client {
   provider = "prisma-client-js"

@@ -1,16 +1,30 @@
 import type { saveDataDto, updateDataDto } from './accountModel';
 import type { historyType } from '../types';
+import { PrismaClient, type AccountHistory } from '@prisma/client';
 
 export class AccountHistoryModel {
-	static async save(data: saveDataDto) {
+	#prisma;
+	constructor() {
+		this.#prisma = new PrismaClient();
+	}
+	async save(data: saveDataDto) {
+		const { date, type, detail, amount, category } = data;
+		try {
+			await this.#prisma.accountHistory.create({
+				data: { date, type, detail, amount, category }
+			});
+			await this.#prisma.$disconnect();
+		} catch (e) {
+			console.error(e);
+			await this.#prisma.$disconnect();
+		}
 		const savedData = await AccountHistoryModel.getAllData();
 		const id = savedData.length < 1 ? 1 : savedData.slice(-1)[0].id + 1;
 		AccountHistoryModel.setData(savedData.concat({ id, ...data }));
 	}
 
-	static async get(year: number, month: number): Promise<historyType[]> {
-		const data: historyType[] = await this.getAllData();
-		return data.filter((d) => d.date.includes(`${year}-${month}`));
+	async get(year: number, month: number): Promise<AccountHistory[]> {
+		return await this.#prisma.accountHistory.findMany();
 	}
 
 	static async update(dataToUpdate: updateDataDto) {
