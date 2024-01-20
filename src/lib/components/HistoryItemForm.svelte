@@ -2,17 +2,24 @@
 	import HistoryItem from '$lib/classes/HistoryItem';
 	import { createEventDispatcher } from 'svelte';
 	import AccountTypeButtons from './\bAccountTypeButtons.svelte';
-	import { CategoryModel } from '$lib/models/CategoryModel';
 
+	// TODO 컴포넌트에 데이터만 받도록 수정
 	export let data: HistoryItem = new HistoryItem();
 
-	const categoryModel = new CategoryModel();
-	const promise = categoryModel.fetchCategory();
+	let categoryList = [];
+	const fetchCategory = async () => {
+		const res = await fetch('/category');
+		categoryList = await res.json();
+		return categoryList;
+	};
 
-	$: categoryOptions = categoryModel.getFilteredList(data.type);
+	const promise = fetchCategory();
+
+	$: categoryOptions = categoryList.filter((c) => c.type === data.type);
 
 	const dispatch = createEventDispatcher();
 
+	let action = '?/create'; // TODO
 	const onSubmit = (e: Event) => {
 		e.preventDefault();
 		if (!data.validate()) return;
@@ -21,7 +28,7 @@
 </script>
 
 {#await promise then}
-	<form class="flex flex-col gap-10" on:submit={onSubmit}>
+	<form class="flex flex-col gap-10" {action} method="post">
 		<div class="form-control w-full">
 			<label class="label" for="date">
 				<span class="label-text">날짜</span>

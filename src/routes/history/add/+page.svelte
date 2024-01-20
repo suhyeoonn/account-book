@@ -2,12 +2,12 @@
 	import type { accountModel } from '$lib/models/accountModel';
 	import type HistoryItem from '$lib/classes/HistoryItem';
 	import HistoryItemForm from '$lib/components/HistoryItemForm.svelte';
-	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
+	import { AccountHistoryModel } from '$lib/models/AccountHistoryModel';
 
-	const firebase: accountModel = AccountHistoryFirebase;
+	const model: accountModel = new AccountHistoryModel();
 
 	const onSubmit = async (data: HistoryItem) => {
-		const result = await firebase.save({
+		const result = await model.save({
 			date: data.date,
 			detail: data.detail,
 			category: data.category,

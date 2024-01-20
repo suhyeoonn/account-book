@@ -23,6 +23,7 @@ export class CategoryModel {
 		this.#prisma = new PrismaClient();
 	}
 	async fetchCategory() {
+		// TODO https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding
 		const categoryList: getCateogryDto[] = [
 			{ id: 1, name: '💰 월급', type: AccountType.INPUT },
 			{ id: 2, name: '📈 부수입', type: AccountType.INPUT },
@@ -59,10 +60,6 @@ export class CategoryModel {
 	// TODO store로 옮긴 후 제거
 	get categoryList() {
 		return this.#category;
-	}
-
-	getFilteredList(type: number) {
-		return this.#category.filter((c) => c.type === type);
 	}
 
 	getCategoryName(category: number) {

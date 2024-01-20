@@ -18,9 +18,6 @@ export class AccountHistoryModel {
 			console.error(e);
 			await this.#prisma.$disconnect();
 		}
-		const savedData = await AccountHistoryModel.getAllData();
-		const id = savedData.length < 1 ? 1 : savedData.slice(-1)[0].id + 1;
-		AccountHistoryModel.setData(savedData.concat({ id, ...data }));
 	}
 
 	async get(year: number, month: number): Promise<AccountHistory[]> {
