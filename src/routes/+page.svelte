@@ -5,18 +5,17 @@
 	import MonthController from '$lib/components/MonthController.svelte';
 	import HistoryOfDayList from '$lib/components/HistoryOfDayList.svelte';
 	import { month, year } from '../stores/accountHistory';
-	import { AccountHistoryFirebase } from '$lib/models/AccountHistoryFirebase';
 	import type { historyType } from '$lib/types';
 	import { AccountType } from '$lib/classes/AccountType';
 
 	const model: accountModel = AccountHistoryModel;
-	const firebase = AccountHistoryFirebase;
 
 	let inputTotal = 0,
 		outputTotal = 0,
 		result = 0;
 	const fetchHistory = async () => {
-		const data = await firebase.get($year, $month);
+		const res = await fetch(`/history?year=${$year}&month=${$month}`);
+		const data = await res.json();
 
 		inputTotal = data
 			.filter((d) => AccountType.isInputType(d.type))

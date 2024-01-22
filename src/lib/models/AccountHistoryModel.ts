@@ -21,6 +21,7 @@ export class AccountHistoryModel {
 	}
 
 	async get(year: number, month: number): Promise<AccountHistory[]> {
+		// TODO where
 		return await this.#prisma.accountHistory.findMany();
 	}
 
