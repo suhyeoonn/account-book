@@ -21,8 +21,18 @@ export class AccountHistoryModel {
 	}
 
 	async get(year: number, month: number): Promise<AccountHistory[]> {
-		// TODO where
-		return await this.#prisma.accountHistory.findMany();
+		const startDate = new Date(`${year}-${month}-01`);
+		const endDate = new Date(`${year}-${month}-01`);
+		endDate.setMonth(startDate.getMonth() + 1);
+
+		return await this.#prisma.accountHistory.findMany({
+			where: {
+				date: {
+					gte: startDate,
+					lte: endDate
+				}
+			}
+		});
 	}
 
 	static async update(dataToUpdate: updateDataDto) {
