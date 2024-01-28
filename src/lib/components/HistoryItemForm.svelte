@@ -1,10 +1,10 @@
 <script lang="ts">
 	import HistoryItem from '$lib/classes/HistoryItem';
-	import { createEventDispatcher } from 'svelte';
 	import AccountTypeButtons from './\bAccountTypeButtons.svelte';
 
 	// TODO 컴포넌트에 데이터만 받도록 수정
 	export let data: HistoryItem = new HistoryItem();
+	export let action = '?/create';
 
 	let categoryList = [];
 	const fetchCategory = async () => {
@@ -16,15 +16,6 @@
 	const promise = fetchCategory();
 
 	$: categoryOptions = categoryList.filter((c) => c.type === data.type);
-
-	const dispatch = createEventDispatcher();
-
-	let action = '?/create'; // TODO
-	const onSubmit = (e: Event) => {
-		e.preventDefault();
-		if (!data.validate()) return;
-		dispatch('submit', data);
-	};
 </script>
 
 {#await promise then}
@@ -34,11 +25,11 @@
 				<span class="label-text">날짜</span>
 			</label>
 			<input
-				id="date"
 				type="date"
 				bind:value={data.date}
 				required
 				class="input input-bordered input-lg"
+				name="date"
 			/>
 		</div>
 
@@ -48,7 +39,7 @@
 			<label class="label" for="category">
 				<span class="label-text">분류</span>
 			</label>
-			<select id="category" class="select select-bordered w-full" bind:value={data.category}>
+			<select name="category" class="select select-bordered w-full" bind:value={data.category}>
 				<option disabled value="0">분류 선택</option>
 				{#each categoryOptions as { id, name }}
 					<option value={id}>{name}</option>
@@ -61,13 +52,13 @@
 				<span class="label-text">금액</span>
 			</label>
 			<input
-				id="amount"
 				type="number"
 				placeholder="금액"
 				bind:value={data.amount}
 				required
 				class="input input-bordered input-lg"
 				min="0"
+				name="amount"
 			/>
 		</div>
 		<div class="form-control w-full">
@@ -75,7 +66,7 @@
 				<span class="label-text">설명</span>
 			</label>
 			<input
-				id="detail"
+				name="detail"
 				type="text"
 				placeholder="설명"
 				bind:value={data.detail}
