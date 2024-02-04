@@ -11,6 +11,6 @@ export const actions = {
 			amount: Number(data.get('amount')),
 			type: Number(data.get('type'))
 		});
-		redirect(302, '/category'); // TODO 리다이렉트 안됨
+		throw redirect(303, '/');
 	}
 };

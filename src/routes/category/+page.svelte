@@ -5,6 +5,7 @@
 </script>
 
 <!-- TODO 카테고리 삭제 기능 추가 -->
+<a href="/" role="button" class="btn">뒤로</a>
 <h1 class="text-2xl mb-5">Category List</h1>
 <ul class="mb-5">
 	{#each data.categoryList as category}

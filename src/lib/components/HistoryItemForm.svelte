@@ -25,6 +25,7 @@
 				<span class="label-text">날짜</span>
 			</label>
 			<input
+				id="date"
 				type="date"
 				bind:value={data.date}
 				required
@@ -39,7 +40,13 @@
 			<label class="label" for="category">
 				<span class="label-text">분류</span>
 			</label>
-			<select name="category" class="select select-bordered w-full" bind:value={data.category}>
+			<select
+				id="category"
+				required
+				name="category"
+				class="select select-bordered w-full"
+				bind:value={data.category}
+			>
 				<option disabled value="0">분류 선택</option>
 				{#each categoryOptions as { id, name }}
 					<option value={id}>{name}</option>
@@ -52,6 +59,7 @@
 				<span class="label-text">금액</span>
 			</label>
 			<input
+				id="amount"
 				type="number"
 				placeholder="금액"
 				bind:value={data.amount}
@@ -66,6 +74,7 @@
 				<span class="label-text">설명</span>
 			</label>
 			<input
+				id="detail"
 				name="detail"
 				type="text"
 				placeholder="설명"
